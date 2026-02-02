@@ -1,0 +1,13 @@
+from typing import Optional, List
+from sqlmodel import SQLModel, Field, Relationship
+from .Booking import Booking
+  
+class Vehicle(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    brand: str
+    model: str
+    year: int
+    category: str  
+    daily_rate: float
+    image_url: str
+    bookings: List["Booking"] = Relationship(back_populates="vehicle")
