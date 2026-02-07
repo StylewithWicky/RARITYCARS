@@ -1,18 +1,33 @@
 from typing import Optional, List, TYPE_CHECKING
+from typing import Optional, List, TYPE_CHECKING
 from sqlmodel import SQLModel, Field, Relationship
+from .Vehicle import VehicleRead
+
+
 if TYPE_CHECKING:
     from .Vehicle import Vehicle
     from .Route import Route
-  
-class Booking(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+
+
+class BookingBase(SQLModel):
     customer_name: str
     start_date: str
     end_date: str
-    total_price: float
-    
+    total_price: Optional[float] = 0.0
     vehicle_id: int = Field(foreign_key="vehicle.id")
-    vehicle: Vehicle = Relationship(back_populates="bookings")
-    
     route_id: Optional[int] = Field(default=None, foreign_key="route.id")
-    route:Route=Relationship(back_populates="bookings")
+    status: str = Field(default="pending")  # pending, confirmed, completed, cancelled
+
+class BookingCreate(BookingBase):
+    pass 
+
+
+class BookingRead(BookingBase):
+    id: int
+class BookingReadWithVehicle(BookingRead):
+    vehicle: Optional["VehicleRead"] = None
+
+class Booking(BookingBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    vehicle: "Vehicle" = Relationship(back_populates="bookings")
+    route: Optional["Route"] = Relationship(back_populates="bookings")
