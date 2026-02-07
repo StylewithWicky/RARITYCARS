@@ -4,6 +4,7 @@ from app.database.database import get_session
 from app.database.database import engine
 from app.models.Vehicle import Vehicle, VehicleCreate, VehicleRead  
 from typing import List
+import re
 
 router = APIRouter(
     prefix="/vehicles",
@@ -28,9 +29,19 @@ def get_vehicle_by_slug(slug: str, session: Session = Depends(get_session)):
 
 
 
-@router.get("/{vehicle_id}", response_model=Vehicle)
-def read_vehicle(vehicle_id: int, session: Session = Depends(get_session)):
-    vehicle = session.get(Vehicle, vehicle_id)
-    if not vehicle:
-        raise HTTPException(status_code=404, detail="Vehicle not found")
-    return vehicle
+@router.post("/", response_model=VehicleRead, status_code=201)
+def create_vehicle(vehicle_data: VehicleCreate, session: Session = Depends(get_session)):
+    db_vehicle = Vehicle.model_validate(vehicle_data)
+    
+    
+    base_slug = f"{db_vehicle.brand}-{db_vehicle.model}".lower().strip()
+    
+    clean_slug = re.sub(r'[^a-z0-9]+', '-', base_slug)
+    
+   
+    db_vehicle.slug = clean_slug
+
+    session.add(db_vehicle)
+    session.commit()
+    session.refresh(db_vehicle)
+    return db_vehicle
