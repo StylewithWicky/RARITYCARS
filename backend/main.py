@@ -5,6 +5,8 @@ from app.database.database import create_db_and_tables, get_session
 from sqlmodel import Session, select
 from app.models.Vehicle import Vehicle
 from app.routes import Vehicle as vehicle_module
+from app.routes import Booking as booking_module
+from app.routes import Route as route_module
 
 
 app = FastAPI(title="Rarity Cars API")
@@ -37,3 +39,5 @@ def root():
     return {"message": "Rarity Cars API is running with Modular Routes!"}
 
 app.include_router(vehicle_module.router)
+app.include_router(booking_module.router)
+app.include_router(route_module.router)
