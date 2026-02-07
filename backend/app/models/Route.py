@@ -1,6 +1,7 @@
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from sqlmodel import SQLModel, Field, Relationship
-from .Booking import Booking
+if TYPE_CHECKING:
+    from .Booking import Booking
   
 class Route(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)

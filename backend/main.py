@@ -1,5 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from app.models import Vehicle
+from app.database.database import create_db_and_tables, get_session
+from sqlmodel import Session, select
+from app.models.Vehicle import Vehicle
+from app.routes import Vehicle as vehicle_module
+
 
 app = FastAPI(title="Rarity Cars API")
 
@@ -22,3 +28,16 @@ async def health_check():
         "system": "Rarity Cars Backend",
         "environment": "development"
     }
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
+
+@app.get("/vehicles")
+def get_vehicles(session: Session = Depends(get_session)):
+    vehicles = session.exec(select(Vehicle)).all()
+    return vehicles
+app.include_router(vehicle_module.router)
+
+@app.get("/")
+def root():
+    return {"message": "Rarity Cars API is running with Modular Routes!"}

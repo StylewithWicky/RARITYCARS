@@ -1,7 +1,8 @@
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from sqlmodel import SQLModel, Field, Relationship
-from .Vehicle import Vehicle
-from .Route import Route
+if TYPE_CHECKING:
+    from .Vehicle import Vehicle
+    from .Route import Route
   
 class Booking(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -14,4 +15,4 @@ class Booking(SQLModel, table=True):
     vehicle: Vehicle = Relationship(back_populates="bookings")
     
     route_id: Optional[int] = Field(default=None, foreign_key="route.id")
-    route: Optional[Route] = Relationship(back_populates="bookings")
+    route:Route=Relationship(back_populates="bookings")
