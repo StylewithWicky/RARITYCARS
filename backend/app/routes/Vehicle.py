@@ -45,3 +45,32 @@ def create_vehicle(vehicle_data: VehicleCreate, session: Session = Depends(get_s
     session.commit()
     session.refresh(db_vehicle)
     return db_vehicle
+
+@router.patch("/{vehicle_id}", response_model=VehicleRead)
+def update_vehicle(vehicle_id: int, vehicle_data: dict, session: Session = Depends(get_session)):
+    
+    db_vehicle = session.get(Vehicle, vehicle_id)
+    if not db_vehicle:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
+    for key, value in vehicle_data.items():
+        if hasattr(db_vehicle, key):
+            setattr(db_vehicle, key, value)
+    
+    if "brand" in vehicle_data or "model" in vehicle_data:
+        base_slug = f"{db_vehicle.brand}-{db_vehicle.model}".lower().strip()
+        db_vehicle.slug = re.sub(r'[^a-z0-9]+', '-', base_slug)
+
+    session.add(db_vehicle)
+    session.commit()
+    session.refresh(db_vehicle)
+    return db_vehicle
+
+@router.delete("/{vehicle_id}")
+def delete_vehicle(vehicle_id: int, session: Session = Depends(get_session)):
+    db_vehicle = session.get(Vehicle, vehicle_id)
+    if not db_vehicle:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
+    
+    session.delete(db_vehicle)
+    session.commit()
+    return {"message": f"Vehicle {vehicle_id} deleted successfully"}
