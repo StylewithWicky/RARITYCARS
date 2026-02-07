@@ -10,19 +10,23 @@ const VehicleCard = ({ vehicle }) => {
     <motion.div whileHover={{ y: -5 }} className="vehicle-card">
       <Link to={`/vehicles/${vehicle.slug}`} className="card-link">
         <div className="image-wrapper">
-          <img src={vehicle.image_url} alt={vehicle.name} />
+          <img src={vehicle.image_url} alt={`${vehicle.brand} ${vehicle.model}`} />
           <span className="badge">{vehicle.category}</span>
         </div>
         
         <div className="card-body">
           <div className="card-header">
-            <h3>{vehicle.name}</h3>
-            <span className="price">${vehicle.price_per_day}<span>/day</span></span>
+           
+            <h3>{vehicle.brand} {vehicle.model}</h3>
+            
+
+            <span className="price">${vehicle.daily_rate}<span>/day</span></span>
           </div>
           
           <div className="card-specs">
-            <div className="spec"><Users size={14}/> {vehicle.seats} Seats</div>
-            <div className="spec"><Gauge size={14}/> {vehicle.transmission}</div>
+           
+            <div className="spec"><Users size={14}/> {vehicle.seats || 4} Seats</div>
+            <div className="spec"><Gauge size={14}/> {vehicle.transmission || 'Automatic'}</div>
           </div>
 
           <button className="view-btn">

@@ -1,7 +1,6 @@
-// src/pages/VehicleDetail.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Shield, Calendar, Fuel } from 'lucide-react';
+import { ArrowLeft, Calendar, Tag, ShieldCheck } from 'lucide-react';
 import client from '../api/client';
 import '../styles/VehicleDetails.css';
 
@@ -11,40 +10,66 @@ const VehicleDetail = () => {
   const [vehicle, setVehicle] = useState(null);
 
   useEffect(() => {
-    client.get(`/vehicles/${slug}`)
-      .then(res => setVehicle(res.data))
-      .catch(() => navigate('/'));
-  }, [slug, navigate]);
+    if (!slug || slug === 'pending') return;
 
+    
+    client.get(`/vehicles/${slug}`)
+      .then(res => {
+        console.log("Vehicle found:", res.data);
+        setVehicle(res.data);
+      })
+      .catch(err => {
+        console.error("Fetch error details:", err.response?.data || err.message);
+      });
+  }, [slug]);
   if (!vehicle) return <div className="loader">Loading...</div>;
 
   return (
     <div className="detail-page">
       <nav className="detail-nav">
-        <button onClick={() => navigate(-1)}><ArrowLeft /> Back to Fleet</button>
+        <button onClick={() => navigate(-1)} className="back-btn">
+          <ArrowLeft size={18} /> Back to Fleet
+        </button>
       </nav>
 
       <div className="detail-container">
         <div className="gallery-section">
-          <img src={vehicle.image_url} alt={vehicle.name} className="main-img" />
+          
+          <img 
+            src={vehicle.image_url} 
+            alt={`${vehicle.brand} ${vehicle.model}`} 
+            className="main-img" 
+          />
         </div>
 
         <div className="info-section">
           <header>
-            <span className="category">{vehicle.category}</span>
-            <h1>{vehicle.name}</h1>
-            <p className="price-big">${vehicle.price_per_day} <span>per day</span></p>
+            <span className="category-label">{vehicle.category}</span>
+            <h1>{vehicle.brand} {vehicle.model}</h1>
+            <p className="price-display">
+              ${vehicle.daily_rate} <span>per day</span>
+            </p>
           </header>
 
-          <div className="details-grid">
-            <div className="detail-tile"><Fuel /> <span>Fuel</span> <strong>{vehicle.fuel_type}</strong></div>
-            <div className="detail-tile"><Calendar /> <span>Year</span> <strong>{vehicle.year}</strong></div>
-            <div className="detail-tile"><Shield /> <span>Status</span> <strong>Available</strong></div>
+          <div className="basic-info-row">
+             <div className="info-item">
+                <Calendar size={18} /> 
+                <span>Year: <strong>{vehicle.year}</strong></span>
+             </div>
+             <div className="info-item">
+                <Tag size={18} /> 
+                <span>ID: <strong>#{vehicle.id}</strong></span>
+             </div>
           </div>
 
-          <p className="description">{vehicle.description}</p>
-          
-          <button className="book-btn-final">Book This Vehicle Now</button>
+          <div className="booking-summary">
+            <p>Ready to drive the {vehicle.brand} {vehicle.model}?</p>
+            <button className="book-btn-final">Book Now</button>
+          </div>
+
+          <div className="status-badge">
+            <ShieldCheck size={16} /> Instant Confirmation Available
+          </div>
         </div>
       </div>
     </div>
