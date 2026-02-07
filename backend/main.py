@@ -32,12 +32,8 @@ async def health_check():
 def on_startup():
     create_db_and_tables()
 
-@app.get("/vehicles")
-def get_vehicles(session: Session = Depends(get_session)):
-    vehicles = session.exec(select(Vehicle)).all()
-    return vehicles
-app.include_router(vehicle_module.router)
-
 @app.get("/")
 def root():
     return {"message": "Rarity Cars API is running with Modular Routes!"}
+
+app.include_router(vehicle_module.router)
