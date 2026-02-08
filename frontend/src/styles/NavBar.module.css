@@ -1,0 +1,267 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 25px 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  color: white;
+}
+
+.navbarScrolled {
+  padding: 12px 0;
+  background: rgba(10, 17, 40, 0.92); /* Deep Rarity Navy */
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.navContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+}
+
+/* Logo Styles */
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logoIcon {
+  color: #c5a059;
+}
+
+.brandName {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+}
+
+.brandSub {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: #c5a059;
+  margin-top: 4px;
+}
+
+/* Nav Links */
+.navLinks {
+  display: flex;
+  gap: 35px;
+  list-style: none;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.link:hover {
+  color: #c5a059;
+}
+
+/* Mega Menu / Dropdown */
+.dropdownWrapper {
+  position: relative;
+}
+
+.megaMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 280px;
+  background: #0a1128;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 12px;
+  padding: 15px 0;
+  margin-top: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.megaItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 25px;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.megaItem:hover {
+  background: rgba(197, 160, 89, 0.1);
+}
+
+.itemLabel {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Status Indicator Pulse */
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.online {
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulse-green 2s infinite;
+}
+
+.offline {
+  background: #ef4444;
+}
+
+.countText {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+}
+
+@keyframes pulse-green {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* Actions */
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.phoneLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #c5a059;
+}
+
+.phoneText {
+  display: flex;
+  flex-direction: column;
+}
+
+.phoneText span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ctaButton {
+  background: #c5a059;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 1px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #a38446;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(163, 132, 70, 0.3);
+}
+
+/* Sidebar & Mobile */
+.menuToggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .navLinks, .phoneLink { display: none; }
+  .menuToggle { display: block; }
+}
+
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background: #0a1128;
+  z-index: 1001;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.sidebarLinks {
+  list-style: none;
+  margin-top: 50px;
+}
+
+.sidebarLinks button, .sidebarLinks a {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 15px 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.ctaButtonFull {
+  width: 100%;
+  padding: 18px;
+  background: #c5a059;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-top: auto;
+}
