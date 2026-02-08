@@ -17,7 +17,9 @@ class BookingBase(SQLModel):
     vehicle_id: int = Field(foreign_key="vehicle.id")
     route_id: Optional[int] = Field(default=None, foreign_key="route.id")
     status: str = Field(default="pending")  # pending, confirmed, completed, cancelled
-
+    pickup_location: str  
+    dropoff_location: str
+    include_chauffeur: bool = False
 class BookingCreate(BookingBase):
     pass 
 

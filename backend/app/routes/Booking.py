@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session, select
+from sqlmodel import Session, select, and_
 from app.database.database import get_session
 from app.models.Booking import Booking, BookingCreate, BookingRead
 from app.models.Vehicle import Vehicle
@@ -14,31 +14,46 @@ def create_booking(booking_in: BookingCreate, session: Session = Depends(get_ses
     
     vehicle = session.get(Vehicle, booking_in.vehicle_id)
     if not vehicle:
-        raise HTTPException(status_code=404, detail="Car not found")
+        raise HTTPException(status_code=404, detail="Vehicle not found")
 
    
-    try:
-       
-        date_format = "%Y-%m-%d"
-        start = datetime.strptime(booking_in.start_date, date_format)
-        end = datetime.strptime(booking_in.end_date, date_format)
-    except ValueError:
+    overlap_query = select(Booking).where(
+        and_(
+            Booking.vehicle_id == booking_in.vehicle_id,
+            Booking.start_date < booking_in.end_date,
+            Booking.end_date > booking_in.start_date,
+            Booking.status != "cancelled"
+        )
+    )
+    existing_overlap = session.exec(overlap_query).first()
+    if existing_overlap:
         raise HTTPException(
             status_code=400, 
-            detail="Date format should be YYYY-MM-DD"
+            detail="This vehicle is already reserved for the selected dates."
         )
 
     
-    duration = (end - start).days
-    
-    
+    duration = (booking_in.end_date - booking_in.start_date).days
     if duration <= 0:
-      duration = 1
-    calculated_total = duration * vehicle.daily_rate
-    db_booking = Booking.model_validate(booking_in)
-    db_booking.total_price = calculated_total
-    db_booking.status = "pending"  
+        duration = 1 
 
+   
+    base_rate = vehicle.daily_rate
+    if duration >= 30:
+        discount = 0.20  
+    elif duration >= 7:
+        discount = 0.10  
+    else:
+        discount = 0.0
+
+    total_price = (duration * base_rate) * (1 - discount)
+
+   
+    db_booking = Booking.model_validate(booking_in)
+    db_booking.total_price = total_price
+    db_booking.status = "pending"
+
+    
     session.add(db_booking)
     session.commit()
     session.refresh(db_booking)
@@ -46,7 +61,7 @@ def create_booking(booking_in: BookingCreate, session: Session = Depends(get_ses
 
 @router.get("/", response_model=List[BookingRead])
 def read_all_bookings(session: Session = Depends(get_session)):
-    """Inarudisha orodha ya bookings zote."""
+    """Inarudisha list ya bookings zote."""
     return session.exec(select(Booking)).all()
 
 @router.get("/{booking_id}", response_model=BookingRead)
