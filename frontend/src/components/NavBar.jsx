@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Car, ChevronDown, PhoneCall, CheckCircle } from "lucide-react";
-import styles from "./Navbar.module.css";
+import styles from "../styles/NavBar.module.css";
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setSidebar] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
-  // Mock live data - this would ideally come from an API
+  
   const fleetStatus = {
     executive: 4,
     suvs: 2,
