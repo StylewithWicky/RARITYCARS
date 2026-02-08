@@ -1,0 +1,77 @@
+:root {
+  --rarity-gold: #c5a059;
+  --rarity-navy: #0a1128;
+  --accent-bg: #f8fafc;
+}
+
+/* Hero Section with Parallax-like feel */
+.about-hero {
+  padding: 100px 10%;
+  background: linear-gradient(to right, #ffffff 50%, var(--rarity-navy) 50%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.hero-text-content h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--rarity-navy);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+/* Comparison Section */
+.lease-logic-section {
+  padding: 80px 10%;
+  background: var(--accent-bg);
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.lease-card {
+  padding: 40px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease;
+}
+
+.lease-card.highlight {
+  border-left: 5px solid var(--rarity-gold);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* Checklist Section */
+.inclusion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 60px 10%;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  color: var(--rarity-navy);
+}
+
+.check-icon {
+  color: var(--rarity-gold);
+  flex-shrink: 0;
+}
+
+.exclusion-box {
+  background: #fff1f2;
+  border: 1px solid #fecaca;
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 40px;
+}
