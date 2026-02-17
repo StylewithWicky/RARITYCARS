@@ -11,8 +11,8 @@ class VehicleBase(SQLModel):
     year: int
     category: str  
     daily_rate: float
-    image_url: str
-    slug: str
+    image_url: str=Field(max_length=1024)
+    slug: str=Field(unique=True, index=True)
 
 
 class Vehicle(VehicleBase, table=True):

@@ -1,85 +1,78 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlmodel import Session, select, and_
 from app.database.database import get_session
 from app.models.Booking import Booking, BookingCreate, BookingRead
 from app.models.Vehicle import Vehicle
-from datetime import datetime
+from datetime import timedelta
 from typing import List
-import re
 
-router = APIRouter(prefix="/bookings", tags=["Bookings"])
+router = APIRouter( tags=["Bookings"])
 
 @router.post("/", response_model=BookingRead, status_code=status.HTTP_201_CREATED)
-def create_booking(booking_in: BookingCreate, session: Session = Depends(get_session)):
-    
+def create_booking(
+    booking_in: BookingCreate, 
+    session: Session = Depends(get_session),
+    ignore_buffer: bool = Query(False, description="Admin override")
+):
     vehicle = session.get(Vehicle, booking_in.vehicle_id)
     if not vehicle:
         raise HTTPException(status_code=404, detail="Vehicle not found")
 
-   
+    
+    buffer_days = timedelta(days=0 if ignore_buffer else 1)
     overlap_query = select(Booking).where(
         and_(
             Booking.vehicle_id == booking_in.vehicle_id,
-            Booking.start_date < booking_in.end_date,
-            Booking.end_date > booking_in.start_date,
-            Booking.status != "cancelled"
+            Booking.status != "cancelled",
+            Booking.start_date < (booking_in.end_date + buffer_days),
+            Booking.end_date > (booking_in.start_date - buffer_days)
         )
     )
-    existing_overlap = session.exec(overlap_query).first()
-    if existing_overlap:
-        raise HTTPException(
-            status_code=400, 
-            detail="This vehicle is already reserved for the selected dates."
-        )
-
     
-    duration = (booking_in.end_date - booking_in.start_date).days
-    if duration <= 0:
-        duration = 1 
+    if session.exec(overlap_query).first():
+        raise HTTPException(status_code=400, detail="Vehicle is unavailable for these dates.")
 
-   
-    base_rate = vehicle.daily_rate
-    if duration >= 30:
-        discount = 0.20  
-    elif duration >= 7:
-        discount = 0.10  
-    else:
-        discount = 0.0
+  
+    duration = max((booking_in.end_date - booking_in.start_date).days, 1)
+    discount = 0.20 if duration >= 30 else (0.10 if duration >= 7 else 0.0)
+    total_price = (duration * vehicle.daily_rate) * (1 - discount)
 
-    total_price = (duration * base_rate) * (1 - discount)
-
-   
     db_booking = Booking.model_validate(booking_in)
     db_booking.total_price = total_price
     db_booking.status = "pending"
 
-    
     session.add(db_booking)
     session.commit()
     session.refresh(db_booking)
     return db_booking
 
-@router.get("/", response_model=List[BookingRead])
+@router.get("/", response_model=List[dict])
 def read_all_bookings(session: Session = Depends(get_session)):
-    """Inarudisha list ya bookings zote."""
-    return session.exec(select(Booking)).all()
-
-@router.get("/{booking_id}", response_model=BookingRead)
-def read_booking(booking_id: int, session: Session = Depends(get_session)):
     
-    booking = session.get(Booking, booking_id)
-    if not booking:
-        raise HTTPException(status_code=404, detail="Booking not found")
-    return booking
+    statement = select(Booking, Vehicle).join(Vehicle, Booking.vehicle_id == Vehicle.id)
+    results = session.exec(statement).all()
+    
+    enriched = []
+    for booking, vehicle in results:
+        data = booking.model_dump()
+        data["vehicle_brand"] = vehicle.brand
+        data["vehicle_model"] = vehicle.model
+        enriched.append(data)
+    return enriched
 
 @router.patch("/{booking_id}/status", response_model=BookingRead)
-def update_booking_status(booking_id: int, new_status: str, session: Session = Depends(get_session)):
-    
+def update_booking_status(
+    booking_id: int, 
+    new_status: str, 
+    reason: str = Query(None), 
+    session: Session = Depends(get_session)
+):
     db_booking = session.get(Booking, booking_id)
     if not db_booking:
         raise HTTPException(status_code=404, detail="Booking not found")
     
-    db_booking.status = new_status
+    db_booking.status = new_status.lower()
+    
     session.add(db_booking)
     session.commit()
     session.refresh(db_booking)
