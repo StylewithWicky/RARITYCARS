@@ -1,0 +1,178 @@
+.contactSection {
+  background: #0a1128; /* Deep Midnight Blue */
+  padding: 120px 5%;
+  color: white;
+  position: relative;
+  scroll-margin-top: 80px;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.subtitle {
+  color: #c5a059;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.mainTitle {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
+  margin: 15px 0;
+}
+
+.mainTitle span {
+  color: #c5a059;
+}
+
+.subText {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+}
+
+/* Main Grid Layout */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+}
+
+/* Location Cards */
+.locationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.infoCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+  padding: 35px;
+  border-radius: 12px;
+  transition: all 0.4s ease;
+}
+
+.infoCard:hover {
+  background: rgba(197, 160, 89, 0.05);
+  border-color: #c5a059;
+  transform: translateY(-5px);
+}
+
+.infoCard h3 {
+  font-size: 18px;
+  margin-bottom: 25px;
+  color: #c5a059;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cardDetail {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.iconGold {
+  color: #c5a059;
+  margin-top: 3px;
+}
+
+.numbers {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardDetail a, .cardDetail span {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+.cardDetail a:hover {
+  color: #c5a059;
+}
+
+/* Luxury Form */
+.formWrapper {
+  background: #ffffff05;
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
+
+.luxuryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputGroup label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #c5a059;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.inputGroup input, .inputGroup select, .inputGroup textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+}
+
+.inputGroup input:focus, .inputGroup textarea:focus {
+  outline: none;
+  border-color: #c5a059;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.submitBtn {
+  background: #c5a059;
+  color: #0a1128;
+  padding: 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.submitBtn:hover {
+  background: #e2bc74;
+  transform: scale(1.02);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}

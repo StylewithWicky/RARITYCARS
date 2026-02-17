@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  CheckCircle2, XCircle, ShieldCheck, 
-  Settings, Zap, TrendingUp, Users 
+  CheckCircle2, XCircle, TrendingUp, Zap 
 } from 'lucide-react';
-import '../styles/AboutUs.module.css';
+import styles from '../styles/AboutUs.module.css';
 
 const AboutRarity = () => {
   const inclusions = [
@@ -17,94 +16,112 @@ const AboutRarity = () => {
     "Fuel", "Driver", "Car Wash", "Contaminated Fuel Damage", "Travel outside Kenya"
   ];
 
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
   return (
-    <div className="rarity-about-page">
-      {/* SECTION 1: HERO STORY */}
-      <section className="about-hero">
+    <div id="about-section" className={styles.rarityAboutPage}>
+      
+      <section className={styles.aboutHero}>
         <motion.div 
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          className="hero-text-content"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          <span className="text-gold tracking-[5px] uppercase text-xs font-bold">Kenyan Success Story</span>
-          <h1>The Home of Easy Car Leasing.</h1>
-          <p className="mt-6 text-gray-600 text-lg">
+          <span className={styles.heroSubLabel}>Kenyan Success Story</span>
+          <h1>The Home of <br/><span className={styles.textGold}>Easy Car Leasing.</span></h1>
+          <p>
             We offer so much more than just a car. Rarity specializes in 
-            <strong> flexible off-balance sheet assets</strong> to help you excel.
+            <strong> flexible off-balance sheet assets</strong> to help your business excel in East Africa.
           </p>
         </motion.div>
         
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          className="vision-mission-box p-12 bg-navy text-white rounded-3xl"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className={styles.visionMissionBox}
         >
-          <div className="mb-10">
-            <h4 className="text-gold flex items-center gap-2 mb-2"><TrendingUp size={20}/> VISION</h4>
-            <p className="text-gray-300">To be the leading B2B Car leasing and rental Company in East Africa.</p>
+          <div className={styles.visionItem}>
+            <h4><TrendingUp size={20} className={styles.textGold}/> VISION</h4>
+            <p>To be the leading B2B Car leasing and rental Company in East Africa.</p>
           </div>
-          <div>
-            <h4 className="text-gold flex items-center gap-2 mb-2"><Zap size={20}/> MISSION</h4>
-            <p className="text-gray-300">Delivering value, convenience, and peace of mind through managed solutions.</p>
+          <div className={styles.missionItem}>
+            <h4><Zap size={20} className={styles.textGold}/> MISSION</h4>
+            <p>Delivering value, convenience, and peace of mind through managed solutions.</p>
           </div>
         </motion.div>
       </section>
 
-      {/* SECTION 2: LEASE LOGIC (WET VS DRY) */}
-      <section className="lease-logic-section">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl font-black text-navy">Why B2B Rental?</h2>
-          <p className="text-gray-500 mt-4">Understanding the "Wet Lease" advantage that Rarity provides.</p>
-        </div>
+      <section className={styles.leaseLogicSection}>
+        <motion.div {...fadeInUp} className={styles.sectionHeader}>
+          <h2>Why B2B Rental?</h2>
+          <p>Understanding the "Wet Lease" advantage that Rarity provides.</p>
+        </motion.div>
 
-        <div className="comparison-grid">
-          <motion.div whileHover={{y:-10}} className="lease-card">
-            <h4 className="text-xl font-bold mb-4">Dry Lease</h4>
-            <p className="text-sm text-gray-500">Standard rental. You get the vehicle, you handle the rest. Best for those who already have a fleet team.</p>
+        <div className={styles.comparisonGrid}>
+          <motion.div 
+            {...fadeInUp}
+            whileHover={{ y: -5 }} 
+            className={styles.leaseCard}
+          >
+            <h3>Dry Lease</h3>
+            <p>Standard rental. You get the vehicle, you handle the rest. Best for those who already have an internal fleet management team.</p>
           </motion.div>
 
-          <motion.div whileHover={{y:-10}} className="lease-card highlight">
-            <div className="flex justify-between items-start">
-                <h4 className="text-xl font-bold mb-4">Wet Lease (The Rarity Way)</h4>
-                <span className="bg-gold text-white text-[10px] px-2 py-1 rounded">RECOMMENDED</span>
+          <motion.div 
+            {...fadeInUp}
+            whileHover={{ y: -5 }} 
+            className={`${styles.leaseCard} ${styles.highlight}`}
+          >
+            <div className={styles.cardHeader}>
+                <h3>Wet Lease</h3>
+                <span className={styles.recommendedBadge}>RECOMMENDED</span>
             </div>
-            <p className="text-sm text-gray-700">A managed asset including tracking, insurance, and full service. Peace of mind included.</p>
+            <p>The Rarity Way. A fully managed asset including tracking, insurance, and maintenance. Total peace of mind included.</p>
           </motion.div>
         </div>
       </section>
 
-      
-      <section className="bg-white py-20 px-[10%]">
-        <div className="flex items-center gap-4 mb-12">
-            <div className="h-[2px] w-20 bg-gold"></div>
-            <h2 className="text-2xl font-bold uppercase tracking-widest">The Rarity Value Chain</h2>
-        </div>
+      <section className={styles.valueChainSection}>
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className={styles.valueChainTitle}
+        >
+            <div className={styles.goldLine}></div>
+            <h2>The Rarity Value Chain</h2>
+        </motion.div>
 
-        <div className="inclusion-grid">
+        <div className={styles.inclusionGrid}>
           {inclusions.map((item, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              className="check-item"
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05, duration: 0.4 }}
+              className={styles.checkItem}
             >
-              <CheckCircle2 size={20} className="check-icon" />
+              <CheckCircle2 size={18} className={styles.checkIcon} />
               <span>{item}</span>
             </motion.div>
           ))}
         </div>
 
-        
         <motion.div 
-            initial={{ opacity: 0 }} 
-            whileInView={{ opacity: 1 }}
-            className="exclusion-box"
+          {...fadeInUp}
+          className={styles.exclusionBox}
         >
-          <h4 className="flex items-center gap-2 text-red-600 font-bold mb-4">
-            <XCircle size={20} /> WHAT OUR LEASE EXCLUDES
-          </h4>
-          <div className="flex flex-wrap gap-6 text-sm text-red-800 font-medium">
+          <h4><XCircle size={18} /> WHAT OUR LEASE EXCLUDES</h4>
+          <div className={styles.exclusionList}>
             {exclusions.map((item, i) => (
                 <span key={i}>• {item}</span>
             ))}
@@ -112,12 +129,13 @@ const AboutRarity = () => {
         </motion.div>
       </section>
 
-      {/* CALL TO ACTION */}
-      <section className="py-20 bg-navy text-white text-center">
-        <h3 className="text-3xl font-bold mb-6">Save big with our affordable car rental!</h3>
-        <button className="bg-gold text-white px-10 py-4 rounded-full font-bold hover:scale-105 transition-transform">
-          GET STARTED WITHIN 1 HOUR
-        </button>
+      <section className={styles.ctaSection}>
+        <motion.div {...fadeInUp}>
+          <h3>Save big with our affordable car rental!</h3>
+          <button className={styles.ctaButton}>
+            GET STARTED WITHIN 1 HOUR
+          </button>
+        </motion.div>
       </section>
     </div>
   );

@@ -1,0 +1,162 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #040712; 
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(197, 160, 89, 0.05) 0%, transparent 50%);
+  padding: 20px;
+}
+
+.form {
+  background: #0d1425; 
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(197, 160, 89, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.5s ease-out;
+}
+
+.brandHeader {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.mainIcon {
+  color: #c5a059; 
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.3));
+}
+
+.title {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Alert States */
+.error, .successMessage {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: shake 0.4s ease;
+}
+
+.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.successMessage {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+/* Inputs */
+.inputGroup {
+  margin-bottom: 25px;
+}
+
+.inputRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #060b1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.inputRow:focus-within {
+  border-color: #c5a059;
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
+}
+
+.icon {
+  margin-left: 15px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.input {
+  width: 100%;
+  padding: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: 5px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.button {
+  flex: 2;
+  background: #c5a059;
+  color: #0d1425;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.backButton {
+  flex: 1;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}

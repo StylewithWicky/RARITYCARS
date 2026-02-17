@@ -1,31 +1,48 @@
 .fleetWrapper {
-  padding: 80px 5%;
-  background: #fdfdfd;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
+  /* Smooth entry for the cards */
+  animation: fadeIn 0.6s ease-out;
 }
 
-.loader {
-  text-align: center;
-  padding: 100px;
-  font-weight: 700;
-  color: #c5a059;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-
-.grid > div {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-@keyframes fadeInUp {
+@keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  color: #0a1128;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(197, 160, 89, 0.2);
+  border-top-color: #c5a059; /* Rarity Gold */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.noResults {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 50px;
 }

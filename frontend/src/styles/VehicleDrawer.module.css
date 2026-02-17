@@ -1,0 +1,46 @@
+
+.drawer-container {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.drawer-backdrop {
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.4s ease;
+}
+
+
+.drawer-scroll-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.drawer-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.drawer-scroll-area::-webkit-scrollbar-thumb {
+  background: #2d3748;
+  border-radius: 10px;
+}
+
+.drawer-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #4a5568;
+}
+
+
+.efficiency-card-gradient {
+  background: linear-gradient(145deg, #0f172a 0%, #000000 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+@keyframes dataStreamPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.parsing-stream {
+  animation: dataStreamPulse 1.5s infinite;
+  letter-spacing: 0.2em;
+}

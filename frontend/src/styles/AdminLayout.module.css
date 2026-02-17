@@ -1,0 +1,169 @@
+/* Main Wrapper - Kills the white split */
+.adminWrapper {
+  display: flex !important;
+  width: 100vw !important;
+  min-height: 100vh;
+  background-color: #0b0e14;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar - Fixed to the left */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background-color: #12161d;
+  border-right: 1px solid #232931;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Brand Section */
+.brand { 
+  padding: 2rem 2rem 2.5rem; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+}
+
+.logoText { 
+  font-size: 1.5rem; 
+  font-weight: 800; 
+  color: #c5a059; 
+  letter-spacing: 2px; 
+}
+
+.badge { 
+  font-size: 0.6rem; 
+  background: #c5a059; 
+  color: #000; 
+  padding: 2px 6px; 
+  border-radius: 4px; 
+  font-weight: 900; 
+}
+
+/* Navigation */
+.sideNav { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 4px;
+  flex: 1; /* Keeps nav items at the top */
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.9rem 2rem;
+  color: #94a3b8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.navItem:hover { 
+  background: rgba(197, 160, 89, 0.05); 
+  color: #fff; 
+}
+
+/* --- Added: Active State Styling --- */
+.navItem.active {
+  color: #c5a059;
+  background: rgba(197, 160, 89, 0.08);
+  border-left: 3px solid #c5a059;
+  font-weight: 600;
+}
+
+/* Logout Button */
+.logoutBtn {
+  margin: 1.5rem;
+  padding: 0.8rem;
+  background: rgba(229, 62, 62, 0.08);
+  color: #e53e3e;
+  border: 1px solid rgba(229, 62, 62, 0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+  background: rgba(229, 62, 62, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Main Content Area */
+.adminMain {
+  flex: 1 !important;
+  margin-left: 260px;
+  min-height: 100vh;
+  background-color: #0b0e14;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 260px) !important;
+}
+
+/* Top Header */
+.adminHeader {
+  width: 100%;
+  height: 70px;
+  background-color: #12161d;
+  border-bottom: 1px solid #232931;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2.5rem;
+  box-sizing: border-box;
+}
+
+.headerLeft h2 {
+  color: #fff;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.breadcrumb {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.adminProfile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background: #c5a059;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+/* Dashboard Content Wrapper */
+.contentArea {
+  padding: 2.5rem;
+  width: 100% !important;
+  box-sizing: border-box;
+  flex: 1;
+}

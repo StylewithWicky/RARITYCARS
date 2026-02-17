@@ -1,0 +1,119 @@
+.whySection {
+  padding: 120px 10%;
+  background-color: #fcfcfd; /* Very subtle off-white */
+  overflow: hidden;
+}
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* --- Left Column --- */
+.subTitle {
+  color: #c5a059;
+  letter-spacing: 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 12px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.mainTitle {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  color: #0a1128;
+  line-height: 1.1;
+  margin-bottom: 25px;
+}
+
+.goldText { color: #c5a059; }
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #64748b;
+  margin-bottom: 40px;
+}
+
+.statsRow {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.statsRow h4 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.statsRow p {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.divider {
+  width: 1px;
+  height: 50px;
+  background: #e2e8f0;
+}
+
+/* --- Right Column (Cards) --- */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.iconCircle {
+  width: 50px;
+  height: 50px;
+  background: #0a1128;
+  color: #c5a059;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.featureCard h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0a1128;
+  margin-bottom: 12px;
+}
+
+.featureCard p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+
+@media (max-width: 1100px) {
+  .mainContainer { grid-template-columns: 1fr; gap: 60px; }
+  .textContent { text-align: center; }
+  .statsRow { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .cardsGrid { grid-template-columns: 1fr; }
+}

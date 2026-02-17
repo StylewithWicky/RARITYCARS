@@ -1,0 +1,98 @@
+.wrapper {
+  width: 100%;
+  background: #0a1128;
+  padding: 100px 0;
+  border-top: 1px solid rgba(197, 160, 89, 0.1);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.label {
+  text-align: center;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #c5a059;
+  margin-bottom: 80px;
+  font-weight: 700;
+  opacity: 0.9;
+  display: block;
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.track {
+  display: inline-flex;
+  align-items: center;
+  animation: scroll 60s linear infinite;
+}
+
+.logoBox {
+  width: 180px;
+  height: 80px;
+  margin: 0 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* Makes logos visible white/silver by default */
+  filter: grayscale(1) brightness(1.5);
+  opacity: 0.7; /* High visibility without hover */
+  transition: all 0.4s ease;
+}
+
+.logo:hover {
+  filter: grayscale(0) brightness(1);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 60px 0;
+  }
+  .label {
+    margin-bottom: 40px;
+    font-size: 10px;
+  }
+  .logoBox {
+    width: 130px;
+    margin: 0 25px;
+  }
+}

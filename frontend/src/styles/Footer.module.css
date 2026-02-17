@@ -1,0 +1,147 @@
+.footer {
+  background-color: #ffffff;
+  color: #333;
+  padding: 80px 0 20px 0;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  /* Four equal columns */
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+}
+
+/* Column Headers */
+.brandTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.heading {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #000;
+  position: relative;
+}
+
+/* Text Content */
+.description {
+  line-height: 1.6;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Lists */
+.links, .hoursList, .contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.links li, .hoursList li, .contactList li {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.links a, .contactList a {
+  text-decoration: none;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.links a:hover, .contactList a:hover {
+  color: #000;
+}
+
+.hoursList span {
+  font-weight: 600;
+  color: #888;
+  min-width: 80px;
+}
+
+/* Bottom Bar */
+.bottomBar {
+  margin-top: 60px;
+  padding-top: 25px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.bottomContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.copyright strong {
+  color: #333;
+}
+
+/* Socials & Secret Portal */
+.socials {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.socials a {
+  color: #666;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.socials a:hover {
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.secretLink {
+  opacity: 0.3;
+  margin-left: 10px;
+  cursor: default;
+}
+
+.secretLink:hover {
+  opacity: 1;
+  color: #000 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  
+  .bottomContent {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}

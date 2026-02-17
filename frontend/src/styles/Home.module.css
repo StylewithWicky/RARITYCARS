@@ -1,0 +1,35 @@
+/* Home.module.css */
+.homeWrapper {
+  background-color: #fbfbfb;
+}
+
+.stickyBarWrapper {
+  max-width: 1200px;
+  margin: -60px auto 0; /* Pulls it 60px up into the Hero image */
+  position: relative;
+  z-index: 10;
+  padding: 0 20px;
+}
+
+.fleetContainer {
+  padding: 80px 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.sectionHeader span {
+  color: #c5a059; /* Rarity Gold */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.sectionHeader h2 {
+  font-size: 2.5rem;
+  color: #0a1128; /* Rarity Navy */
+  margin-top: 10px;
+}

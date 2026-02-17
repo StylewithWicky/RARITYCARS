@@ -1,47 +1,86 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import VehicleCard from "./components/VehicleCards";
-import VehicleDetail from "./components/VehicleDetails";
-import VehicleList from "./components/VehicleList";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+// Layouts
+import GuestLayout from './guest/GuestLayout';
+import AdminLayout from './Admin/AdminLayout';
 
+// Components
+import TawkChat from './components/TawkChat'; // ✅ New Tawk.to Component
+import Home from './pages/Home';
+import FleetSection from './components/Fleet'; 
+import ProductDetails from './components/VehicleDetails'; 
+import Login from './components/auth/LoginForm';
+import AboutRarity from './components/AboutUs'; 
 
-function App() {
-  const [vehicles, setVehicles] = useState([]); 
-  const [loading, setLoading] = useState(true);
+// Admin Pages
+import AdminAnalytics from './Admin/AdminAnalytics';
+import ProductUpload from './Admin/ProductUpload';
+import AdminFleetList from './Admin/AdminFleet';
+import AdminInquiries from './Admin/AdminInquiries'; // ✅ Aligned with your Inbox
+import BookingTable from './Admin/BookingTable';
 
-  useEffect(() => {
-    
-    fetch("http://127.0.0.1:8000/vehicles")
-      .then((response) => response.json())
-      .then((data) => {
-        setVehicles(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching vehicles:", error);
-        setLoading(false);
-      });
-  }, []);
+/**
+ * Security: Prevents non-admins from accessing the /mkuru portal
+ */
+const ProtectedRoute = ({ children }) => {
+  const role = localStorage.getItem("userRole");
+  const token = localStorage.getItem("token");
+  
+  if (!token || role !== "admin") {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
-  if (loading) return <div className="loading">Loading Rarity Cars...</div>;
-
+const App = () => {
   return (
     <Router>
-      <div className="app-shell">
-        <nav className="navbar">
-          <div className="logo">RARITY<span>CARS</span></div>
-        </nav>
+      {/* 💬 Global Live Chat: Lives outside Routes to persist during navigation */}
+      <TawkChat />
 
-        <Routes>
+      <Routes>
+        {/* --- 🌍 GUEST ROUTES (PUBLIC) --- */}
+        <Route element={<GuestLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutRarity />} />
+          <Route path="/fleet" element={<FleetSection />} />
+          <Route path="/fleet/:category" element={<FleetSection />} /> 
+          <Route path="/products/:category/:slug" element={<ProductDetails />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+
+        
+        <Route 
+          path="/mkuru" 
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* Dashboard & Data */}
+          <Route index element={<AdminAnalytics />} /> 
+          <Route path="analytics" element={<AdminAnalytics />} />
+          <Route path="bookings" element={<BookingTable />} />
+          <Route path="inquiries" element={<AdminInquiries />} />
           
-          <Route path="/" element={<VehicleList vehicles={vehicles} />} />
-          <Route path="/vehicles" element={<VehicleList vehicles={vehicles} />} />
-          <Route path="/vehicles/:slug" element={<VehicleDetail vehicles={vehicles} />} />
-        </Routes>
-      </div>
+          {/* Fleet Management */}
+          <Route path="fleet" element={<AdminFleetList />} />
+          <Route path="upload" element={<ProductUpload />} />
+          <Route path="products/:category/:slug" element={<ProductDetails />} />
+          
+          {/* System */}
+          <Route path="audit-logs" element={<div className="p-8 text-white font-mono">System Audit Logs</div>} />
+          <Route path="settings" element={<div className="p-8 text-white font-mono">Global Fleet Settings</div>} />
+        </Route>
+
+        {/* --- REDIRECTS & 404s --- */}
+        <Route path="/admin/*" element={<Navigate to="/mkuru" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Router>
   );
-}
+};
+
 export default App;
